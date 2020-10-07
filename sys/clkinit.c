@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <q.h>
 
+#include <lab1.h>
 /* Intel 8254-2 clock chip constants */
 
 #define	CLOCKBASE	0x40		/* I/O base port of clock chip	*/
@@ -29,6 +30,7 @@ int     *sltop;			/* address of key part of top entry in	*/
 int     clockq;			/* head of queue of sleeping processes  */
 int	preempt;		/* preemption counter.	Current process */
 				/* is preempted when it reaches zero;	*/
+int	prevpreempt; //LINUX SCHEDULER prevpreempt
 #ifdef	RTCLOCK
 				/* set in resched; counts in ticks	*/
 int	clkruns;		/* set TRUE iff clock exists by setclkr	*/
@@ -53,7 +55,12 @@ void clkinit()
 
 	clkruns = 1;
 	clockq = newqueue();
-	preempt = QUANTUM;		/* initial time quantum		*/
+	// LINUX SCHEDULER changes
+	if (getschedclass() == LINUXSCHED)
+		preempt = 1;
+	else
+		preempt = QUANTUM;		/* initial time quantum		*/
+	preempt = 1; // LINUX SCHEDULER
 	clmutex = screate(1);
 
 	/*  set to: timer 0, 16-bit counter, rate generator mode,

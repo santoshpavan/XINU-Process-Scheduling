@@ -75,8 +75,9 @@ typedef short	STATWORD[1];	/* machine status for disable/restore	*/
 #define	min(a,b)	( (a) < (b) ? (a) : (b) )
 #define	max(a,b)	( (a) > (b) ? (a) : (b) )
 
-extern	int	rdyhead, rdytail;
-extern	int	preempt;
+extern	int	rdyhead, rdytail; /* head/tail of ready list (q indicies)	--from initialize.c*/
+extern	int	preempt; //for LINUX SCHEDULER
+extern	int 	prevpreempt; //for LINUX SCHEDULER
 
 /* Include types and configuration information */
 

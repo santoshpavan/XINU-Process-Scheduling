@@ -46,7 +46,18 @@ SYSCALL create(procaddr,ssize,priority,name,nargs,args)
 
 	numproc++;
 	pptr = &proctab[pid];
-
+	
+	// LINUX scheduling changes --start
+	// if it is the beginning of the epoch
+	if (preempt == prevpreempt)
+		pptr->birthstatus = THISPROC;
+	else
+		pptr->birthstatus = NEXTPROC;
+	pptr->timequantum = priority;
+	pptr->counter = priority;
+	pptr->goodnessvalue = priority*2;
+	// LINUX scheduling changes --end
+	
 	pptr->fildes[0] = 0;	/* stdin set to console */
 	pptr->fildes[1] = 0;	/* stdout set to console */
 	pptr->fildes[2] = 0;	/* stderr set to console */
