@@ -1,0 +1,37 @@
+1)
+EXPONENTIAL DISTRIBUTION
+Advantages-
+1. The processes of lower priority will get a chance to be run because of the random distribution. This avoids the problem of starvation that is present in the default implementataion of XINU scheduler.
+2. Because of the random distribution, on an average, the response time of the processes will be lower than the default implementation. 
+3. Easy to implement when compared to Linux-Like Scheduler. Hence, it is faster than Linux-Like Scheduler.
+
+Disadvantages-
+1. The turnaround times of the processes can be higher in this case when compared to the default implementation. This is because, as all the processes are being tended to on a random distribution.
+2. There is an unfair advantage to the lower priority processes, as they will be running for longer time than the higher priority processes. This is because, the random distribution is a right skewed graph as it is an exponential distribution, i.e. the lower the priority value, the higher it has the chance to be picked, and the higher the priority value, the fainter the chance of getting picked by the scheduler.
+3. It is harder to implement than the default scheduler of XINU. Hence, it is slower than the default scheduler.
+
+LINUX-LIKE SCHEDULER
+Advantages-
+1. The highest priority process will be completed for sure without any preemption. This is an advantage over the Exponential Distribution Scheduler.
+2. The number of times a process will be picked depends on its priority. Hence, the scheduling will be more fair than the Exponential Distribution Scheduler.
+3. As we are using specific time slots for each process in each epoch, ensuring that all the processes get tended to in an epoch, we do not have the starvation problem as in the default scheduler. This also shows that the average response time of the processes will be lower than the default scheduler.
+
+Disadvantages-
+1. More complex in implementation of all three schedulers.
+2. Has higher execution time of all three schedulers, as it is more complex.
+
+
+ROUND ROBIN IN DEFAULT SCHEDULER
+Advantages-
+1. Because of the round robin implementation, we have, on an average lower response times for the processes than if it were not there. This is because all the processes of equal priority get equal chance of getting scheduled.
+
+Disadvantages-
+1. If there are two or more processes of equal and highest priority, then the scheduler might keep picking these processes in round robin without ever scheduling the processes with lower priority. This leads to starvation problem. This also leads to very high turn around times.
+
+
+2)
+The NULL process in all the schedulers is only being run where no other process is present to run and when there is no other process in the ready queue to be part of a context switch.
+In Linux-like Scheduler, in addition to the above mentioned, the NULL process is also being used when there is no other process in the ready queue with non-zero counter value.
+
+Note:
+I have discussed the questions with Vinayak Dubey and Archit Kwatra. I have just discussed the problems and not the solutions.
